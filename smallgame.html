@@ -1,0 +1,30 @@
+<html>
+<head>  
+    <meta charset="UTF-8">
+    <title>smallgame-tetris</title>
+    <style>
+
+        #tetrisbackground {
+            width:790px;
+            height:790px;
+            position:relative;
+            background-image:url("pic/backgroundtetris.png");
+        }
+        .block {
+            position:absolute;
+            width:40px;
+            top:-40p;
+        }
+    </style>
+    <script>
+         function block(){
+            var b=document.createElement("img");
+            b.src="pic/0.png";
+        }
+    </script>
+</head>
+<body onload="gameInit()" onkeydown="mykeydown()" onkeyup="mykeyup()">
+    <div id="tetrisbackground"></div >
+        <div id="block" src="pic/0.png"></div>
+</body>
+</html>
