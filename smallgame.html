@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>俄羅斯方塊</title>
+  <style>
+    canvas {
+      border: 2px solid #fff;       /* 白色邊框 */
+      background: black;            /* 背景為黑色 */
+      image-rendering: pixelated;   /* 確保畫出來是像素格 */
+    }
+  </style>
+</head>
+<body>
+  <canvas id="tetris" width="240" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('tetris');       // 取得畫布元素
+    const context = canvas.getContext('2d');                // 取得 2D 繪圖上下文
+    context.scale(20, 20);                                  // 把每格像素放大 20 倍（讓 1 格看起來是 20x20 像素）
+
+    // 定義方塊顏色（index 對應 matrix 中的值）
+    const colors = [
+      null,
+      '#FF0D72',  // 粉紅
+      '#0DC2FF',  // 藍
+      '#0DFF72',  // 綠
+      '#F538FF',  // 紫
+      '#FF8E0D',  // 橘
+      '#FFE138',  // 黃
+      '#3877FF'   // 深藍
+    ];
+
+    // 建立方塊形狀（7 種基本方塊）
+    function createPiece(type) {
+      if (type === 'T') {
+        return [
+          [0, 1, 0],
+          [1, 1, 1],
+          [0, 0, 0],
+        ];
+      } else if (type === 'O') {
+        return [
+          [2, 2],
+          [2, 2],
+        ];
+      } else if (type === 'L') {
+        return [
+          [0, 0, 3],
+          [3, 3, 3],
+          [0, 0, 0],
+        ];
+      } else if (type === 'J') {
+        return [
+          [4, 0, 0],
+          [4, 4, 4],
+          [0, 0, 0],
+        ];
+      } else if (type === 'I') {
+        return [
+          [0, 0, 0, 0],
+          [5, 5, 5, 5],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+        ];
+      } else if (type === 'S') {
+        return [
+          [0, 6, 6],
+          [6, 6, 0],
+          [0, 0, 0],
+        ];
+      } else if (type === 'Z') {
+        return [
+          [7, 7, 0],
+          [0, 7, 7],
+          [0, 0, 0],
+        ];
+      }
+    }
+
+    // 畫出一個矩陣到畫布上
+    function drawMatrix(matrix, offset) {
+      matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+          if (value !== 0) {  // 如果不是空格（0）就畫
+            context.fillStyle = colors[value];  // 根據值設定顏色
+            context.fillRect(x + offset.x, y + offset.y, 1, 1);  // 畫出 1x1 的方塊（實際是 20x20 像素）
+          }
+        });
+      });
+    }
+
+    // 清空畫布並重新畫出整個畫面（背景、地圖、方塊）
+    function draw() {
+      context.fillStyle = '#000';  // 背景黑色
+      context.fillRect(0, 0, canvas.width, canvas.height);  // 清空整個畫布
+      drawMatrix(arena, {x: 0, y: 0});                      // 畫出場地上已有的方塊
+      drawMatrix(player.matrix, player.pos);               // 畫出玩家正在操控的方塊
+    }
+
+    // 建立空的遊戲場地（20 高 x 12 寬）
+    function createMatrix(w, h) {
+      const matrix = [];
+      while (h--) {
+        matrix.push(new Array(w).fill(0));  // 每列都先填入 0（空格）
+      }
+      return matrix;
+    }
+
+    // 初始化玩家狀態
+    const player = {
+      pos: {x: 0, y: 0},          // 目前方塊的位置（左上角）
+      matrix: null,              // 方塊的形狀（2D 陣列）
+    };
+
+    // 初始化遊戲場地
+    const arena = createMatrix(12, 20);
+
+    // 隨機產生一個方塊
+    function playerReset() {
+      const pieces = 'TJLOSZI';
+      player.matrix = createPiece(pieces[Math.floor(Math.random() * pieces.length)]);
+      player.pos.y = 0;
+      player.pos.x = Math.floor(arena[0].length / 2) - Math.floor(player.matrix[0].length / 2);
+    }
+
+    // 更新畫面（每一幀會被呼叫一次）
+    function update(time = 0) {
+      draw();              // 重畫畫面
+      requestAnimationFrame(update);  // 設定下一幀再執行 update（動畫用）
+    }
+
+    playerReset();   // 初始化一個方塊
+    update();        // 啟動畫面更新循環
+  </script>
+</body>
+</html>
