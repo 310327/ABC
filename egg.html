@@ -1,0 +1,69 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>點擊遊戲</title>
+    <style>
+        body {
+            margin: 0;
+        }
+         #grass {
+            width:1900px;
+            height:895px;
+            position: relative;
+            background-image: url("pic/grass.jpg");
+        }
+        .egg {
+            width: 45px;
+            height: 45px;
+            position: absolute;
+            pointer-events: none;
+        }
+        #chick {
+            width: 250px;
+            height: 200px;
+            position: absolute;
+            pointer-events: none;
+        }
+    </style>  
+    <script>
+        function chick() {
+            var grass = document.getElementById("grass");
+            var egg=document.createElement("img");
+            egg.src="pic/egg.png";
+            egg.className="egg";
+            var eggWidth=45;
+            var eggHeight=45;
+            var x=event.offsetX-eggWidth/2;
+            var y=event.offsetY-eggHeight/2;
+            egg.style.left=x+"px";
+            egg.style.top=y+"px";
+            grass.appendChild(egg);
+            var scoreSpan = document.getElementById("gamescore");
+            scoreSpan.textContent = (+scoreSpan.textContent) + 1;
+        }
+        function msMove(){
+            msPos=document.getElementById("mousePos")
+            msPos.innerHTML=`(${event.offsetX},${event.offsetY})`;
+            var chick=document.getElementById("chick");
+            var chickWidth=chick.offsetWidth;
+            var chickHeight=chick.offsetHeight;
+            chick.style.left=(event.offsetX-chickWidth/2)+"px";
+            chick.style.top=(event.offsetY-chickHeight/2)+"px";
+            var left=event.offsetX-chickWidth/2;
+            var top=event.offsetY-chickHeight/2;
+            if (left<0) left=0;
+            if (top<0) top=0;
+            if (left>grassWidth-chickWidth)left=grassWidth-chickWidth;
+            if (top>grassHeight-chickHeight)top=grassHeight-chickHeight;
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="status">Score:<span id="gamescore">0</span>分</div>
+    <div id="grass" onmousemove="msMove(event);" onclick="chick(event);">
+        <img id="chick" src="pic/chick.png">
+    </div>
+    <div id="mousePos">(x,y)</div>
+</body>
+</html>

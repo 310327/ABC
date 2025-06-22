@@ -1,0 +1,131 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>0317homework</title>
+    <style>
+        div{
+            width:200px;
+            height: 100px;
+            margin-bottom:10px;
+            border:1px black solid;
+        }
+        #canvas1 {
+            width:200px;
+            height:500px;
+            border:1px solid black;
+            position: relative;
+        }
+        #item1 {
+            position: absolute;
+            border-radius:100px 100px 0 0;
+            background-color: pink ;
+            z-index:300;
+        }
+        #item2 {
+            position: absolute;
+            border-radius:100px 100px 0 0;
+            background-color: rgba(238, 179, 101, 0.747);
+            top: 100px;
+            z-index:300;
+        }
+        #item3 {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-top: 300px solid rgb(177, 100, 100);
+            position: absolute;
+            top: 200px;
+            left: 0px;
+        }
+        #canvas2 {
+            width:200px;
+            height:160px;
+            border:1px solid black;
+            position: relative;
+        }
+        #item4 {
+            width: 100px;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 60px solid rgb(180, 219, 245);
+        }
+        #item5 {
+            position: absolute;
+            width:0;
+            height:0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-top: 100px solid rgb(180, 219, 245);
+            top:60;
+        }
+        #canvas3 {
+            width:200px;
+            height:300px;
+            border:1px solid black;
+            position: relative;
+        }
+        #item6 {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid  rgb(81, 143, 81);
+            position: absolute;
+            right: 50px;
+            z-index:100;
+        }
+        #item7 {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid rgb(42, 102, 42);
+            position: absolute;
+            right: 50px;
+            top: 50px;
+            transform:scale(1.5,1.5);
+            z-index: 90;
+        }
+        #item8 {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid rgb(45, 87, 45);
+            position: absolute;
+            right: 50px;
+            top:100;
+            transform:scale(2,2)
+        }
+        #item9 {
+            position: absolute;
+            background-color: rgb(88, 24, 24);
+            position: absolute;
+            right: 100px;
+            top:225px;
+            transform:translate(100px,0px) scale(0.25,0.5) ;
+            z-index: 80;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas1">
+        <div id="item1"></div>
+        <div id="item2"></div>
+        <div id="item3"></div>
+    </div>
+    <div id="canvas2">
+        <div id="item4"></div>
+        <div id="item5"></div>
+    </div>
+    <div id="canvas3">
+        <div id="item6"></div>
+        <div id="item7"></div>
+        <div id="item8"></div>
+        <div id="item9"></div>
+    </div>
+</body>
+</html>
